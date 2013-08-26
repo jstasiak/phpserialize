@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 import unittest
+
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
+
 import phpserialize
 
 
@@ -32,8 +38,9 @@ class PhpSerializeTestCase(unittest.TestCase):
                          b'a:3:{i:0;i:7;i:1;i:8;i:2;i:9;}')
 
     def test_dumps_dict(self):
-        self.assertEqual(phpserialize.dumps({'a': 1, 'b': 2, 'c': 3}),
-                         b'a:3:{s:1:"a";i:1;s:1:"c";i:3;s:1:"b";i:2;}')
+        self.assertEqual(
+            phpserialize.dumps(OrderedDict([('a', 1), ('b', 2), ('c', 3)])),
+            b'a:3:{s:1:"a";i:1;s:1:"b";i:2;s:1:"c";i:3;}')
 
     def test_loads_dict(self):
         self.assertEqual(phpserialize.loads(b'a:3:{s:1:"a";i:1;s:1:"c";i:3;s:1:"b";i:2;}',

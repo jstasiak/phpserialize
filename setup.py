@@ -1,6 +1,13 @@
 import os
 from setuptools import setup
 
+try:
+    from collections import OrderedDict  # noqa
+    requirements = []
+except ImportError:
+    requirements = ['ordereddict']
+
+
 def get_docs():
     result = []
     in_docs = False
@@ -29,6 +36,7 @@ setup(
     long_description=get_docs(),
     zip_safe=False,
     test_suite='tests',
+    install_requires=requirements,
     classifiers=[
         'License :: OSI Approved :: BSD License',
         'Programming Language :: PHP',
