@@ -55,8 +55,9 @@ class PhpSerializeTestCase(unittest.TestCase):
                          b'\001\002\003')
 
     def test_dumps_and_loads_dict(self):
-        self.assertEqual(phpserialize.loads(phpserialize.dumps({'a': 1, 'b': 2, 'c': 3}),
-                         decode_strings=True), {'a': 1, 'b': 2, 'c': 3})
+        payload = {'a': 1, 'b': 2, 'c': 3}
+        self.assertEqual(phpserialize.loads(phpserialize.dumps(payload),
+                         decode_strings=True), payload)
 
     def test_list_roundtrips(self):
         x = phpserialize.loads(phpserialize.dumps(list(range(2))))
